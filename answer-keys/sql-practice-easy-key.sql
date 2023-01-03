@@ -76,18 +76,3 @@ left join employees e on m.id = e.manager_id
 group by 1
 order by 2 desc
 limit 1
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
