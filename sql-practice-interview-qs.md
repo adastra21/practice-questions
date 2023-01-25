@@ -1,4 +1,4 @@
-# Interview Questions [Marketing]
+# Interview Questions [Interview Qs]
 
 ## Question 1
 ```
@@ -89,4 +89,25 @@ price 	FLOAT
 Output:
 month 	INTEGER
 month_over_month 	FLOAT
+```
+
+## Question 5
+```
+Given a table of students and their SAT test scores, write a query to return the two students with the closest test scores with the score difference.
+
+If there are multiple students with the same minimum score difference, select the student name combination that is higher in the alphabet.
+
+Example:
+
+Input:
+
+scores table
+id 	INTEGER
+student 	VARCHAR
+score 	INTEGER
+
+Output:
+one_student 	VARCHAR
+other_student 	VARCHAR
+score_diff 	INTEGER
 ```
