@@ -97,10 +97,6 @@ Given a table of students and their SAT test scores, write a query to return the
 
 If there are multiple students with the same minimum score difference, select the student name combination that is higher in the alphabet.
 
-Example:
-
-Input:
-
 scores table
 id 	INTEGER
 student 	VARCHAR
@@ -111,3 +107,77 @@ one_student 	VARCHAR
 other_student 	VARCHAR
 score_diff 	INTEGER
 ```
+
+## Question 6
+```
+Write a query to create a new table, named flight routes, that displays unique pairs of two locations.
+
+Example:
+
+Note: Duplicate pairs from the flights table, such as Dallas to Seattle and Seattle to Dallas, should have one entry in the flight routes table.
+
+flights table
+id 	INTEGER
+source_location 	VARCHAR
+destination_location 	VARCHAR
+
+Output:
+destination_one 	VARCHAR
+destination_two 	VARCHAR
+```
+
+## Question 7
+```
+The rides table contains information about the trips of Uber users across America
+
+Write a query to get the average commute time (in minutes) for each commuter in New York and the average commute time (in minutes) across all commuters in New York.
+
+rides table
+id 	INTEGER
+commuter_id 	INTEGER
+start_dt 	DATETIME
+end_dt 	DATETIME
+city 	VARCHAR
+
+Output:
+commuter_id 	INTEGER
+avg_commuter_time 	FLOAT
+avg_time 	FLOAT
+
+Display results like:
+commuter_id avg_commuter_time avg_time
+11 	        27 	              45
+22 	        97 	              45
+33 	        11 	              45
+```
+
+
+## Question 8
+```
+Let’s say we have two tables, transactions and products. Hypothetically the transactions table consists of over a billion rows of purchases bought by users.
+
+We are trying to find paired products that are often purchased together by the same user, such as wine and bottle openers, chips and beer, etc..
+
+Write a query to find the top five paired products and their names.
+
+Notes: For the purposes of satisfying the test case, p2 should be the item that comes first in the alphabet. The qty column represents paired products count
+
+transactions table
+id 	INTEGER
+user_id 	INTEGER
+created_at 	DATETIME
+product_id 	INTEGER
+quantity 	INTEGER
+
+products table
+id 	INTEGER
+name 	VARCHAR
+price 	FLOAT
+
+Output:
+p1 	VARCHAR
+p2 	VARCHAR
+qty 	INTEGER
+```
+
+

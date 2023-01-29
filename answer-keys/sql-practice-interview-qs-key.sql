@@ -106,3 +106,76 @@ select m.student as one_student,
        m.score_diff
 from matched_ids m
 inner join diffs d on m.matched_id = d.new_id
+
+
+-- Question 6
+select id,
+f.source_location,
+f1.source_location
+from flights f
+inner join flights f1 on f.id >= f1.id
+order by 1
+
+
+-- Question 7
+with avg_ct as (
+    select avg(date_part('minute',end_dt - start_dt)) as avg_commuter_time,
+           commuter_id
+    from rides
+    where city = 'NY'
+    group by 2
+),
+
+avg_a as (
+    select avg(date_part('minute',end_dt - start_dt)) as avg_time
+    from rides
+    where city = 'NY'
+)
+
+select commuter_id,
+       round(avg_commuter_time::numeric,0) as avg_commuter_time,
+       round(avg_time::numeric,0) as avg_time
+from avg_ct, avg_a
+
+
+-- Question 8
+-- combine the two tables and create pairs
+with paired_prods as (
+    select p.name as p2,
+           lag(p.name) over (partition by user_id order by created_at) as p1
+    from transactions t
+    left join products p on t.product_id = p.id
+),
+
+-- check pair order one way
+paired_one_way as (
+        select p1, 
+               p2
+        from paired_prods
+        where p1 < p2
+        and p2 is not null
+),
+
+-- check pair order the other way
+paired_other_way as (
+    select p2 as p1,
+           p1 as p2
+    from paired_prods
+    where p2 < p1
+    and p1 is not null
+),
+
+-- combine them into single order
+all_pairs as  (
+    (select * from paired_one_way)
+    union all 
+    (select * from paired_other_way)
+)
+
+-- count pairs
+select p1,
+       p2,
+       count(*) as qty
+from all_pairs
+group by 1,2
+order by 3 desc
