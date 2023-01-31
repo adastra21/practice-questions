@@ -181,3 +181,51 @@ qty 	INTEGER
 ```
 
 
+## Question 9
+```
+We’re given a table of product purchases. Each row in the table represents an individual user product purchase.
+
+Write a query to get the number of customers that were upsold by purchasing additional products.
+
+Note: If the customer purchased two things on the same day that does not count as an upsell as they were purchased within a similar timeframe.
+
+transactions table
+id 	INTEGER
+user_id 	INTEGER
+created_at 	DATETIME
+product_id 	INTEGER
+quantity 	INTEGER
+
+Output:
+Column 	Type
+num_of_upsold_customers 	INTEGER
+```
+
+
+## Question 10
+```
+Write a query to show the number of users, number of transactions placed, and total order amount per month in the year 2020. Assume that we are only interested in the monthly reports for a single year (January-December).
+
+transactions table
+id 	INTEGER
+user_id 	INTEGER
+created_at 	DATETIME
+product_id 	INTEGER
+quantity 	INTEGER
+
+products table
+id 	INTEGER
+name 	VARCHAR
+price 	FLOAT
+
+users table
+id 	INTEGER
+name 	VARCHAR
+sex 	VARCHAR
+
+Output:
+month 	INTEGER
+num_customers 	INTEGER
+num_orders 	INTEGER
+order_amt 	INTEGER
+```

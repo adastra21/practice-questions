@@ -179,3 +179,47 @@ select p1,
 from all_pairs
 group by 1,2
 order by 3 desc
+
+
+-- Question 9
+-- count of all upsell transactions – 
+-- count of upsell transactions on same day
+with all_upsell as (
+    select row_number() over (partition by user_id order by created_at),
+    user_id
+    from transactions
+),
+
+count_all_upsell as (
+    select count(distinct user_id) 
+    from all_upsell
+    where row_number > 1
+),
+
+same_day_upsell as (
+    select row_number() over (partition by user_id,created_at order by created_at),
+    user_id
+    from transactions
+),
+
+count_same_day_upsell as (
+    select count(distinct user_id)
+    from same_day_upsell
+    where row_number > 1
+)
+
+select (select * from count_all_upsell) - (select * from count_same_day_upsell)
+as num_of_upsold_customers
+
+
+-- Question 10
+select count(distinct user_id) as num_customers,
+       count(t.id) as num_orders,
+       sum(t.quantity*p.price) as order_amt,
+       date_part('month',t.created_at) as month
+from transactions t
+left join products p on t.product_id = p.id
+left join users u on u.id = t.user_id
+where t.created_at >= '2020-01-01'
+and t.created_at <= '2020-12-31'
+group by 4
