@@ -229,3 +229,66 @@ num_customers 	INTEGER
 num_orders 	INTEGER
 order_amt 	INTEGER
 ```
+
+
+## Question 11
+
+```
+You’re given two tables, payments and users. The payments table holds all payments between users with the payment_state column consisting of either "success" or "failed". 
+
+How many customers that signed up in January 2020 had a combined (successful) sending and receiving volume greater than $100 in their first 30 days?
+
+Note: The sender_id and recipient_id both represent the user_id.
+
+payments table
+payment_id 	INTEGER
+sender_id 	INTEGER
+recipient_id 	INTEGER
+created_at 	DATETIME
+payment_state 	VARCHAR
+amount_cents 	INTEGER
+
+users table
+id 	INTEGER
+created_at 	DATETIME
+
+Output:
+Column 	Type
+num_customers 	INTEGER
+```
+
+
+## Question 12
+```
+The schema below is for a retail online shopping company consisting of two tables, attribution and user_sessions.
+
+* The attribution table logs a session visit for each row.
+
+* If conversion is true, then the user converted to buying on that session.
+
+* The channel column represents which advertising platform the user was attributed to for that specific session.
+
+* Lastly the user_sessions table maps many to one session visits back to one user.
+
+First touch attribution is defined as the channel with which the converted user was associated when they first discovered the website.
+
+Calculate the first touch attribution for each user_id that converted.
+
+attribution table
+session_id 	INTEGER
+channel 	VARCHAR
+conversion 	BOOLEAN
+
+user_sessions table
+session_id 	INTEGER
+created_at 	DATETIME
+user_id 	INTEGER
+
+Output:
+user_id channel
+123 	facebook
+145 	google
+153 	facebook
+172 	organic
+173 	email
+```

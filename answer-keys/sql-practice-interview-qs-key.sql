@@ -223,3 +223,53 @@ left join users u on u.id = t.user_id
 where t.created_at >= '2020-01-01'
 and t.created_at <= '2020-12-31'
 group by 4
+
+
+-- Question 11
+with data as (
+    select u.id,
+           u.created_at as created_at_user,
+           sender_id,
+           recipient_id,
+           p.created_at,
+           amount_cents/100 as amount_dollars,
+           datediff(p.created_at,u.created_at) as days_since_signup
+    from users u
+    left join payments p on u.id = p.sender_id
+    or u.id = p.recipient_id
+    where payment_state = 'success'
+    and u.created_at <= '2020-01-31'
+    and u.created_at >= '2020-01-01'
+),
+
+sum_dollars as (
+    select sum(amount_dollars) as total,
+    id
+    from data
+    where days_since_signup <= 30
+    group by 2
+    having sum(amount_dollars) > 100
+)
+
+select count(id) as num_customers
+from sum_dollars
+
+
+-- Question 12
+with sesh_nos as (
+    select user_id,
+    row_number() over (partition by user_id order by created_at) as session_number,
+    channel,
+    conversion
+    from user_sessions us
+    left join attribution a on us.session_id = us.session_id
+)
+
+select channel
+from sesh_nos
+where user_id in (
+    select distinct user_id
+    from sesh_nos
+    where conversion = 1
+    )
+and session_number = 1
